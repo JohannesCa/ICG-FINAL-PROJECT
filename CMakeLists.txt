@@ -54,5 +54,5 @@ endif(WIN32)
 
 
 add_executable(PROGRAM src/main.cpp)
-include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/textures ${CMAKE_SOURCE_DIR}/shaders )
 target_link_libraries(PROGRAM ${LIBS})
