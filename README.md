@@ -18,7 +18,13 @@
 
 ### Compile
 
-> ./compile
+> make all
+
+- - - -
+
+### Clean
+
+> make clean
 
 - - - -
 

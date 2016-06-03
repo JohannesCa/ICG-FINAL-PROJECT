@@ -1,1 +1,0 @@
-/usr/bin/g++   -std=c++11 -g -Wall   CMakeFiles/PROGRAM.dir/src/main.cpp.o  -o PROGRAM  -L/home/thiagohmb/Desktop/OpenGL/ICG-FINAL-PROJECT/lib -rdynamic /usr/local/lib/libglfw3.a -lX11 -lXrandr -lXinerama -lXi -lXxf86vm -lXcursor -lGL -ldl -lpthread -lGLEW -lassimp -Wl,-rpath,/home/thiagohmb/Desktop/OpenGL/ICG-FINAL-PROJECT/lib 
