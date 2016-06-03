@@ -55,5 +55,5 @@ endif(WIN32)
 
 
 add_executable(PROGRAM src/main.cpp)
-include_directories(${CMAKE_SOURCE_DIR}/includes)
+include_directories(${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(PROGRAM ${LIBS})
