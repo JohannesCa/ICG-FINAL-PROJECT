@@ -16,7 +16,7 @@ find_path(SOIL_INCLUDE_DIR SOIL.h
 	/usr/include
 	/usr/local/include
 	/opt/local/include
-	${CMAKE_SOURCE_DIR}/includes
+	${CMAKE_SOURCE_DIR}/include
 )
 
 find_library(SOIL_LIBRARY SOIL
