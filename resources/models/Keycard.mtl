@@ -1,0 +1,20 @@
+#
+## Alias OBJ Material File
+# Exported from SketchUp, (c) 2000-2012 Trimble Navigation Limited
+
+newmtl Steel_Brushed_Stainless
+Ka 0.000000 0.000000 0.000000
+Kd 0.874510 0.894118 0.909804
+Ks 0.330000 0.330000 0.330000
+map_Kd Keycard/Steel_Brushed_Stainless.jpg
+
+newmtl _1
+Ka 0.000000 0.000000 0.000000
+Kd 0.200000 0.411765 0.141176
+Ks 0.330000 0.330000 0.330000
+
+newmtl Color_D06
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.600000 0.000000
+Ks 0.330000 0.330000 0.330000
+

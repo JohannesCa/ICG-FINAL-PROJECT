@@ -1,0 +1,77 @@
+#
+## Alias OBJ Material File
+# Exported from SketchUp, (c) 2000-2012 Trimble Navigation Limited
+
+newmtl metal_fence1
+Ka 0.000000 0.000000 0.000000
+Kd 0.176471 0.176471 0.176471
+Ks 0.330000 0.330000 0.330000
+map_Kd Mapa/metal_fence1.jpg
+
+newmtl metal_floor
+Ka 0.000000 0.000000 0.000000
+Kd 0.203922 0.207843 0.203922
+Ks 0.330000 0.330000 0.330000
+map_Kd Mapa/metal_floor.jpg
+
+newmtl Polished_Concrete_Old
+Ka 0.000000 0.000000 0.000000
+Kd 0.517647 0.517647 0.517647
+Ks 0.330000 0.330000 0.330000
+map_Kd Mapa/Polished_Concrete_Old.jpg
+
+newmtl Metal_Rough
+Ka 0.000000 0.000000 0.000000
+Kd 0.611765 0.627451 0.639216
+Ks 0.330000 0.330000 0.330000
+map_Kd Mapa/Metal_Rough.jpg
+
+newmtl brushed_steel
+Ka 0.000000 0.000000 0.000000
+Kd 0.364706 0.392157 0.419608
+Ks 0.330000 0.330000 0.330000
+map_Kd Mapa/brushed_steel.jpg
+
+newmtl FrontColor
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.330000 0.330000 0.330000
+
+newmtl old_metal_wall
+Ka 0.000000 0.000000 0.000000
+Kd 0.207843 0.223529 0.239216
+Ks 0.330000 0.330000 0.330000
+map_Kd Mapa/old_metal_wall.jpg
+
+newmtl Aluminum
+Ka 0.000000 0.000000 0.000000
+Kd 0.701961 0.701961 0.701961
+Ks 0.330000 0.330000 0.330000
+map_Kd Mapa/Aluminum.jpg
+
+newmtl Color_M00
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.330000 0.330000 0.330000
+
+newmtl Color_M02
+Ka 0.000000 0.000000 0.000000
+Kd 0.776471 0.776471 0.776471
+Ks 0.330000 0.330000 0.330000
+
+newmtl _DimGray_
+Ka 0.000000 0.000000 0.000000
+Kd 0.411765 0.411765 0.411765
+Ks 0.330000 0.330000 0.330000
+
+newmtl Translucent_Glass_Sky_Reflection
+Ka 0.000000 0.000000 0.000000
+Kd 0.145098 0.152941 0.176471
+Ks 0.330000 0.330000 0.330000
+map_Kd Mapa/Translucent_Glass_Sky_Reflection.jpg
+
+newmtl Lisanne_Metal
+Ka 0.000000 0.000000 0.000000
+Kd 0.764706 0.764706 0.764706
+Ks 0.330000 0.330000 0.330000
+
