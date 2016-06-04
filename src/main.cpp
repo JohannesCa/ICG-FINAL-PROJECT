@@ -39,6 +39,8 @@ bool firstMouse = true;
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
 
+#include <thread>
+
 // The MAIN function, from here we start our application and run our Game loop
 int main()
 {
@@ -50,6 +52,7 @@ int main()
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
     GLFWwindow* window = glfwCreateWindow(screenWidth, screenHeight, "LearnOpenGL", nullptr, nullptr); // Windowed
+
     glfwMakeContextCurrent(window);
 
     // Set the required callback functions
@@ -73,9 +76,18 @@ int main()
     // Setup and compile our shaders
     Shader shader("resources/shaders/model_loading.vs", "resources/shaders/model_loading.frag");
 
+
+    bool LOADED = false;
+
     // Load models
-    Model ourModel("resources/models/FinalBaseMesh.obj");
-    
+    Model* ourModel;
+
+    auto t = std::thread([&]{
+	glfwMakeContextCurrent(window);
+	ourModel = new Model("resources/models/FinalBaseMesh.obj");
+	LOADED = true;
+	});
+
     // Draw in wireframe
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -95,23 +107,28 @@ int main()
         glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        shader.Use();   // <-- Don't forget this one!
-        // Transformation matrices
-        glm::mat4 projection = glm::perspective(camera.Zoom, (float)screenWidth/(float)screenHeight, 0.1f, 100.0f);
-        glm::mat4 view = camera.GetViewMatrix();
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+	if(LOADED){
 
-        // Draw the loaded model
-        glm::mat4 model;
-        model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // Translate it down a bit so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// It's a bit too big for our scene, so scale it down
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        ourModel.Draw(shader);
+        	shader.Use();   // <-- Don't forget this one!
+	        // Transformation matrices
+	        glm::mat4 projection = glm::perspective(camera.Zoom, (float)screenWidth/(float)screenHeight, 0.1f, 100.0f);
+	        glm::mat4 view = camera.GetViewMatrix();
+	        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+
+	        // Draw the loaded model
+	        glm::mat4 model;
+	        model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // Translate it down a bit so it's at the center of the scene
+	        model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// It's a bit too big for our scene, so scale it down
+	        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+	        ourModel->Draw(shader);
+	}
 
         // Swap the buffers
         glfwSwapBuffers(window);
     }
+
+	t.join();
 
     glfwTerminate();
     return 0;
