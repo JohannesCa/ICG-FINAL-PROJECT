@@ -8,9 +8,9 @@ Kd 0.874510 0.894118 0.909804
 Ks 0.330000 0.330000 0.330000
 map_Kd Keycard/Steel_Brushed_Stainless.jpg
 
-newmtl _1
+newmtl M_0083_DarkTurquoise
 Ka 0.000000 0.000000 0.000000
-Kd 0.200000 0.411765 0.141176
+Kd 0.000000 0.807843 0.819608
 Ks 0.330000 0.330000 0.330000
 
 newmtl Color_D06

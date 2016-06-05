@@ -136,31 +136,31 @@ int main()
 
 
         // Prepare Matrices
-        model_map = glm::scale(model_map, glm::vec3(0.001f, 0.001f, 0.001f));
+        //model_map = glm::scale(model_map, glm::vec3(0.001f, 0.001f, 0.001f));
 
         model_bat1 = glm::translate(model_bat1, glm::vec3(6.5f, 0.0f, 4.0f));
         model_bat1 = glm::rotate(model_bat1, glm::radians(-135.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        model_bat1 = glm::scale(model_bat1, glm::vec3(0.001f, 0.001f, 0.001f));
+        //model_bat1 = glm::scale(model_bat1, glm::vec3(0.001f, 0.001f, 0.001f));
 
         model_bat2 = glm::translate(model_bat2, glm::vec3(6.5f, 0.0f, -4.0f));
         model_bat2 = glm::rotate(model_bat2, glm::radians(-45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        model_bat2 = glm::scale(model_bat2, glm::vec3(0.001f, 0.001f, 0.001f));
+        //model_bat2 = glm::scale(model_bat2, glm::vec3(0.001f, 0.001f, 0.001f));
 
         model_bat3 = glm::translate(model_bat3, glm::vec3(6.5f, 0.0f, 0.0f));
         model_bat3 = glm::rotate(model_bat3, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        model_bat3 = glm::scale(model_bat3, glm::vec3(0.001f, 0.001f, 0.001f));
+        //model_bat3 = glm::scale(model_bat3, glm::vec3(0.001f, 0.001f, 0.001f));
 
         model_bat4 = glm::translate(model_bat4, glm::vec3(-6.5f, 0.0f, 4.0f));
         model_bat4 = glm::rotate(model_bat4, glm::radians(135.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        model_bat4 = glm::scale(model_bat4, glm::vec3(0.001f, 0.001f, 0.001f));
+        //model_bat4 = glm::scale(model_bat4, glm::vec3(0.001f, 0.001f, 0.001f));
 
         model_key = glm::translate(model_key, glm::vec3(1.6f, 1.32f, -0.3f));
         model_key = glm::rotate(model_key, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        model_key = glm::scale(model_key, glm::vec3(0.001f, 0.001f, 0.001f));
+        //model_key = glm::scale(model_key, glm::vec3(0.001f, 0.001f, 0.001f));
 
         model_keyExit = glm::translate(model_keyExit, glm::vec3(-6.25f, 1.2f, -4.99f));
         model_keyExit = glm::rotate(model_keyExit, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        model_keyExit = glm::scale(model_keyExit, glm::vec3(0.001f, 0.001f, 0.001f));
+        //model_keyExit = glm::scale(model_keyExit, glm::vec3(0.001f, 0.001f, 0.001f));
 
 
         // Draw
@@ -200,8 +200,6 @@ int main()
 	return 0;
 }
 
-
-#pragma region "User input"
 
 // Moves/alters the camera positions based on user input
 void Do_Movement()
@@ -271,5 +269,3 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     camera.ProcessMouseScroll(yoffset);
 }
-
-#pragma endregion
