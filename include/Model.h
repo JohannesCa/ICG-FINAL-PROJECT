@@ -18,14 +18,20 @@ using namespace std;
 
 #include "Mesh.h"
 
-GLint TextureFromFile(const char* path, string directory);
+GLint TextureFromFile(const char* path, string directory, bool gamma = false);
 
 class Model 
 {
 public:
+    /*  Model Data */
+    vector<Texture> textures_loaded;	// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
+    vector<Mesh> meshes;
+    string directory;
+    bool gammaCorrection;
+
     /*  Functions   */
     // Constructor, expects a filepath to a 3D model.
-    Model(GLchar* path)
+    Model(string const & path, bool gamma = false) : gammaCorrection(gamma)
     {
         this->loadModel(path);
     }
@@ -38,17 +44,13 @@ public:
     }
     
 private:
-    /*  Model Data  */
-    vector<Mesh> meshes;
-    string directory;
-
     /*  Functions   */
     // Loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
     void loadModel(string path)
     {
         // Read file via ASSIMP
         Assimp::Importer importer;
-        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
         // Check for errors
         if(!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
         {
@@ -115,6 +117,16 @@ private:
             }
             else
                 vertex.TexCoords = glm::vec2(0.0f, 0.0f);
+            // Tangent
+            vector.x = mesh->mTangents[i].x;
+            vector.y = mesh->mTangents[i].y;
+            vector.z = mesh->mTangents[i].z;
+            vertex.Tangent = vector;
+            // Bitangent
+            vector.x = mesh->mBitangents[i].x;
+            vector.y = mesh->mBitangents[i].y;
+            vector.z = mesh->mBitangents[i].z;
+            vertex.Bitangent = vector;
             vertices.push_back(vertex);
         }
         // Now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
@@ -142,6 +154,12 @@ private:
             // 2. Specular maps
             vector<Texture> specularMaps = this->loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
             textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+            // 3. Normal maps
+            std::vector<Texture> normalMaps = this->loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+            textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+            // 4. Height maps
+            std::vector<Texture> heightMaps = this->loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+            textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
         }
         
         // Return a mesh object created from the extracted mesh data
@@ -158,11 +176,25 @@ private:
             aiString str;
             mat->GetTexture(type, i, &str);
             // Check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
-            Texture texture;
-            texture.id = TextureFromFile(str.C_Str(), this->directory);
-            texture.type = typeName;
-            texture.path = str;
-            textures.push_back(texture);
+            GLboolean skip = false;
+            for(GLuint j = 0; j < textures_loaded.size(); j++)
+            {
+                if(textures_loaded[j].path == str)
+                {
+                    textures.push_back(textures_loaded[j]);
+                    skip = true; // A texture with the same filepath has already been loaded, continue to next one. (optimization)
+                    break;
+                }
+            }
+            if(!skip)
+            {   // If texture hasn't been loaded already, load it
+                Texture texture;
+                texture.id = TextureFromFile(str.C_Str(), this->directory);
+                texture.type = typeName;
+                texture.path = str;
+                textures.push_back(texture);
+                this->textures_loaded.push_back(texture);  // Store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
+            }
         }
         return textures;
     }
@@ -170,7 +202,8 @@ private:
 
 
 
-GLint TextureFromFile(const char* path, string directory)
+
+GLint TextureFromFile(const char* path, string directory, bool gamma)
 {
      //Generate texture ID and load texture data 
     string filename = string(path);
@@ -181,7 +214,7 @@ GLint TextureFromFile(const char* path, string directory)
     unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
     // Assign texture to ID
     glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    glTexImage2D(GL_TEXTURE_2D, 0, gamma ? GL_SRGB : GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
     glGenerateMipmap(GL_TEXTURE_2D);	
 
     // Parameters
@@ -193,3 +226,4 @@ GLint TextureFromFile(const char* path, string directory)
     SOIL_free_image_data(image);
     return textureID;
 }
+

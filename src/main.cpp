@@ -86,16 +86,11 @@ int main()
 //Model - - - -
 
 
-	Model* mapModel;
 	bool LOADED = false;
 
-	std::thread* t = new std::thread([&]{
-		glfwMakeContextCurrent(window);//Atribui o contexto
-		mapModel = new Model("resources/models/FinalBaseMesh.obj"); //carrega o objeto
-		std::cerr << "LOADED" << std::endl;
-		LOADED = true; //avisa que já pode ser renderizado
-	});
+	Model mapModel("resources/models/Mapa.obj");
 
+	LOADED = true;
 
     // Draw in wireframe
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -134,9 +129,9 @@ int main()
 		        // Draw the loaded model
 		        glm::mat4 model;
 		        model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // Translate it down a bit so it's at the center of the scene
-		        model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));	// It's a bit too big for our scene, so scale it down
+		        model = glm::scale(model, glm::vec3(0.001f, 0.001f, 0.001f));	// It's a bit too big for our scene, so scale it down
 		        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		        mapModel->Draw(shader);
+		        mapModel.Draw(shader);
 		}
 		else{
 			glfwSetWindowTitle(window, "MENU");
@@ -150,7 +145,6 @@ int main()
 		glfwSwapBuffers(window);
 	}
 
-	t->join();
 
 	glfwTerminate();
 	return 0;
