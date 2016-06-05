@@ -42,6 +42,7 @@ bool firstMouse = true;
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
 
+int KEY = -1;
 
 // The MAIN function, from here we start our application and run our Game loop
 int main()
@@ -83,6 +84,18 @@ int main()
 
 // Models - - - -
 
+
+	glfwSetWindowTitle(window, "FAZ O SAMPLE DE GUITARRA");
+
+	while(KEY!=GLFW_KEY_ENTER)
+	{
+	        glfwPollEvents();
+	        // Clear the colorbuffer
+	        glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
+	        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glfwSwapBuffers(window);
+	}
+	
     // Load Models
     Model Map("resources/models/Mapa.obj");
     Model Bat1("resources/models/Huge Battery.obj");
@@ -235,6 +248,7 @@ void Do_Movement()
 // Is called whenever a key is pressed/released via GLFW
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
+    KEY = key;
     if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GL_TRUE);
 
