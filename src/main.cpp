@@ -85,17 +85,19 @@ int main()
 // Models - - - -
 
 
-	glfwSetWindowTitle(window, "FAZ O SAMPLE DE GUITARRA");
-
 	while(KEY!=GLFW_KEY_ENTER)
 	{
-	        glfwPollEvents();
-	        // Clear the colorbuffer
-	        glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
-	        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	    glfwSetWindowTitle(window, "FAZ O SAMPLE DE GUITARRA");
+
+        glfwPollEvents();
+	    // Clear the colorbuffer
+	    glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
+	    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glfwSwapBuffers(window);
 	}
-	
+
+    glfwSetWindowTitle(window, "Project Helios");
+
     // Load Models
     Model Map("resources/models/Mapa.obj");
     Model Bat1("resources/models/Huge Battery.obj");

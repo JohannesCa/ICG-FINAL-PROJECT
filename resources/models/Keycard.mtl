@@ -1,20 +1,33 @@
-#
-## Alias OBJ Material File
-# Exported from SketchUp, (c) 2000-2012 Trimble Navigation Limited
-
-newmtl Steel_Brushed_Stainless
-Ka 0.000000 0.000000 0.000000
-Kd 0.874510 0.894118 0.909804
-Ks 0.330000 0.330000 0.330000
-map_Kd Keycard/Steel_Brushed_Stainless.jpg
-
-newmtl M_0083_DarkTurquoise
-Ka 0.000000 0.000000 0.000000
-Kd 0.000000 0.807843 0.819608
-Ks 0.330000 0.330000 0.330000
+# Blender MTL File: 'None'
+# Material Count: 3
 
 newmtl Color_D06
+Ns 96.078431
 Ka 0.000000 0.000000 0.000000
-Kd 0.800000 0.600000 0.000000
-Ks 0.330000 0.330000 0.330000
+Kd 0.560000 0.420000 0.000000
+Ks 0.297000 0.297000 0.297000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
 
+newmtl M_0083_DarkTurquoise
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.807843 0.819608
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+
+newmtl Steel_Brushed_Stainless
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.699608 0.715294 0.727843
+Ks 0.231000 0.231000 0.231000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Keycard\Steel_Brushed_Stainless.jpg
