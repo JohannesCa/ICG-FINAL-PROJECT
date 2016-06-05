@@ -26,6 +26,7 @@ GLuint screenWidth = 1280, screenHeight = 720;
 GLfloat theta = 0;
 bool enableKey = true;
 bool enableExitKey = false;
+glm::vec3 lightPos(0.0f, 3.3f, 0.0f);
 
 // Function prototypes
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -80,7 +81,8 @@ int main()
 // Shaders - - - -
 
 	// Setup and compile our shaders
-	Shader shader("resources/shaders/model_loading.vs", "resources/shaders/model_loading.frag");
+	//Shader shader("resources/shaders/model_loading.vs", "resources/shaders/model_loading.frag");
+    Shader lightingShader("resources/shaders/lighting_maps.vs", "resources/shaders/lighting_maps.frag");
 
 // Models - - - -
 
@@ -129,14 +131,18 @@ int main()
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        shader.Use();   // <-- Don't forget this one!
+        //shader.Use();   // <-- Don't forget this one!
+        lightingShader.Use();
+
+        // Set lights properties
+
 
 
         // Transformation matrices
         glm::mat4 projection = glm::perspective(camera.Zoom, (float)screenWidth/(float)screenHeight, 0.1f, 100.0f);
         glm::mat4 view = camera.GetViewMatrix();
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
 
         // Draw the loaded model
@@ -179,31 +185,36 @@ int main()
 
 
         // Draw
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model_map));
-        Map.Draw(shader);
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model_map));
+        //Map.Draw(shader);
+        Map.Draw(lightingShader);
 
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model_bat1));
-        Bat1.Draw(shader);
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model_bat1));
+        //Bat1.Draw(shader);
+        Bat1.Draw(lightingShader);
 
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model_bat2));
-        Bat2.Draw(shader);
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model_bat2));
+        //Bat2.Draw(shader);
+        Bat2.Draw(lightingShader);
 
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model_bat3));
-        Bat3.Draw(shader);
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model_bat3));
+        //Bat3.Draw(shader);
+        Bat3.Draw(lightingShader);
 
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model_bat4));
-        Bat4.Draw(shader);
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model_bat4));
+        //Bat4.Draw(shader);
+        Bat4.Draw(lightingShader);
 
 
         // Verify if the key was taken
         if(enableKey){
-            glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model_key));
-            Keycard.Draw(shader);
+            glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model_key));
+            Keycard.Draw(lightingShader);
         }
 
         if(enableExitKey){
-            glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model_keyExit));
-            KeyExit.Draw(shader);
+            glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model_keyExit));
+            KeyExit.Draw(lightingShader);
         }
 
 
