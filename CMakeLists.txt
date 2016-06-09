@@ -28,6 +28,8 @@ find_package(SOIL REQUIRED)
 message(STATUS "Found SOIL in ${SOIL_INCLUDE_DIR}")
 find_package(GLEW REQUIRED)
 message(STATUS "Found GLEW in ${GLEW_INCLUDE_DIR}")
+find_package(GLUT REQUIRED)
+message(STATUS "Found GLUT in ${GLUT_INCLUDE_DIR}")
 
 if(WIN32)
   set(LIBS glfw3 opengl32 glew32s SOIL assimp)
@@ -38,7 +40,7 @@ elseif(UNIX)
   find_package(X11 REQUIRED)
   # note that the order is important for setting the libs
   # use pkg-config --libs $(pkg-config --print-requires --print-requires-private glfw3) in a terminal to confirm
-  set(LIBS ${GLFW3_LIBRARY} X11 Xrandr Xinerama Xi Xxf86vm Xcursor GL dl pthread GLEW SOIL assimp)
+  set(LIBS ${GLFW3_LIBRARY} X11 Xrandr Xinerama Xi Xxf86vm Xcursor GL dl pthread GLEW SOIL assimp GL GLU glut)
 elseif(APPLE)
   INCLUDE_DIRECTORIES(/System/Library/Frameworks)
   FIND_LIBRARY(COCOA_LIBRARY Cocoa)
