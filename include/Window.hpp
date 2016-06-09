@@ -16,7 +16,6 @@ class Window
 
 	public:
 
-
 		void destroy()
 		{
 			glutDestroyWindow(1);
@@ -37,9 +36,19 @@ class Window
 			glutKeyboardFunc(keyboard);
 		}
 
-		void mouse_callback(void (*mouse)(int button, int state, int x, int y))
+		void click_callback(void (*click)(int button, int state, int x, int y))
 		{
-			glutMouseFunc(mouse);
+			glutMouseFunc(click);
+		}
+
+		void grab_callback(void (*grab)(int x, int y))
+		{
+			glutMotionFunc(grab);
+		}
+
+		void motion_callback(void (*motion)(int x, int y))
+		{
+			glutPassiveMotionFunc(motion);
 		}
 
 		void operator()()

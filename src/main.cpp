@@ -24,7 +24,9 @@ void init(void);
 void display(void);
 void reshape (int w, int h);
 void keyboard(unsigned char key, int x, int y);
-void mouse(int button, int state, int x, int y);
+void click(int button, int state, int x, int y);
+void motion(int x, int y);
+void grab(int x, int y);
 
 
 Window* window = nullptr;
@@ -35,7 +37,9 @@ int main(int argc, char** argv)
 
 	window->display_callback(display);
 	window->reshape_callback(reshape);
-	window->mouse_callback(mouse);
+	window->motion_callback(motion);
+	window->grab_callback(grab);
+	window->click_callback(click);
 	window->keyboard_callback(keyboard);
 
 	(*window)();
@@ -86,6 +90,8 @@ void keyboard(unsigned char key, int x, int y)
 {
 	#define ESC 27
 
+	std::cerr << "key: " << static_cast<int>(key) << " x: " << x << " y: " << y << std::endl;
+
 	switch(static_cast<int>(key))
 	{
 		case 27:
@@ -96,7 +102,17 @@ void keyboard(unsigned char key, int x, int y)
 	}
 }
 
-void mouse(int button, int state, int x, int y)
+void click(int button, int state, int x, int y)
 {
-	
+	std::cerr << "Button: " << button << " state: " << state << " x: " << x << " y: " << y << std::endl;
+}
+
+void motion(int x, int y)
+{
+	std::cerr << "x: " << x << " y: " << y << std::endl;
+}
+
+void grab(int x, int y)
+{
+	std::cerr << "x: " << x << " y: " << y << std::endl;
 }
