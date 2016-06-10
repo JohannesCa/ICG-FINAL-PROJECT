@@ -1,34 +1,35 @@
 # Blender MTL File: 'None'
 # Material Count: 3
 
-newmtl Color_M08.002
-Ns 96.078431
+newmtl _Aluminum_1
+Ns 94.117647
 Ka 0.000000 0.000000 0.000000
-Kd 0.094118 0.094118 0.094118
-Ks 0.000000 0.000000 0.000000
-Ke 0.000000 0.000000 0.000000
-Ni 1.000000
-d 1.000000
-illum 1
-
-newmtl Translucent_Glass_Sky_Reflection.003
-Ns 96.078431
-Ka 0.000000 0.000000 0.000000
-Kd 0.348627 0.024706 0.068627
+Kd 0.447059 0.447059 0.447059
 Ks 0.330000 0.330000 0.330000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Huge Battery\Translucent_Glass_Sky_Reflection.jpg
+map_Kd Huge Battery/_Aluminum_1.jpg
 
-newmtl _Aluminum_1.002
-Ns 96.078431
+newmtl fluid
+Ns 94.117647
 Ka 0.000000 0.000000 0.000000
-Kd 0.357647 0.357647 0.357647
-Ks 0.297000 0.297000 0.297000
+Kd 0.176471 0.160784 0.113725
+Ks 0.330000 0.330000 0.330000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Huge Battery\_Aluminum_1.jpg
+map_Kd Huge Battery/fluid.jpg
+
+newmtl my_white.003
+Ns 94.117647
+Ka 0.000000 0.000000 0.000000
+Kd 0.905882 0.905882 0.905882
+Ks 0.330000 0.330000 0.330000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Mapa/my_white.jpg
