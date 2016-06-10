@@ -24,10 +24,16 @@
 // Properties
 GLuint screenWidth = 1280, screenHeight = 720;
 GLfloat theta = 0;
+GLfloat alpha = 0;
 bool enableKey = true;
 bool enableExitKey = false;
 glm::vec3 lightPos(0.0f, 3.6f, 0.0f);
-glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
+
+GLfloat colorOffsetR = 1.0f;
+GLfloat colorOffsetG = 1.0f;
+GLfloat colorOffsetB = 1.0f;
+
+glm::vec3 lightColor(colorOffsetR, colorOffsetG, colorOffsetB);
 
 // Function prototypes
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -136,6 +142,7 @@ int main()
 
         lampShader.Use();
 
+        // Transformation matrices
         glm::mat4 projection = glm::perspective(camera.Zoom, (float)screenWidth/(float)screenHeight, 0.1f, 100.0f);
         glm::mat4 view = camera.GetViewMatrix();
         glUniformMatrix4fv(glGetUniformLocation(lampShader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
@@ -149,11 +156,7 @@ int main()
         glUniform3f(glGetUniformLocation(lightingShader.Program, "light.position"), lightPos.x, lightPos.y, lightPos.z);
         glUniform3f(glGetUniformLocation(lightingShader.Program, "viewPos"), camera.Position.x, camera.Position.y, camera.Position.z);
         glUniform3f(glGetUniformLocation(lightingShader.Program, "light.color"), lightColor.x, lightColor.y, lightColor.z);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.ambient"),  0.1f, 0.1f, 0.1f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.ambient"), 1.0f, 1.0f, 1.0f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.diffuse"), 0.8f, 0.8f, 0.8f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.specular"), 0.9f, 0.9f, 0.9f);
-        glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 2.0f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.ambient"), 0.1f, 0.1f, 0.1f);
 
         // Transformation matrices
         glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
@@ -202,9 +205,15 @@ int main()
 
         lightingShader.Use();
         glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model_map));
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.ambient"), 1.0f, 1.0f, 1.0f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.diffuse"), 0.8f, 0.8f, 0.8f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.specular"), 0.7f, 0.7f, 0.7f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 32.0f);
         Map.Draw(lightingShader);
 
         glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model_bat1));
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.specular"), 1.0f, 1.0f, 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 2.0f);
         Bat1.Draw(lightingShader);
 
         glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model_bat2));
@@ -220,6 +229,9 @@ int main()
         // Verify if the key was taken
         if(enableKey){
             glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model_key));
+            glUniform3f(glGetUniformLocation(lightingShader.Program, "material.diffuse"), 1.0f, 1.0f, 1.0f);
+            glUniform3f(glGetUniformLocation(lightingShader.Program, "material.specular"), 1.0f, 1.0f, 1.0f);
+            glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 8.0f);
             Keycard.Draw(lightingShader);
         }
 
@@ -228,6 +240,15 @@ int main()
             KeyExit.Draw(lightingShader);
         }
 
+        colorOffsetR = 0.5 * sin(glm::radians(alpha)) + 0.5;
+        colorOffsetG = 0.5 * sin(glm::radians(2*alpha)) + 0.5;
+        colorOffsetB = 0.5 * sin(glm::radians(4*alpha)) + 0.5;
+        //lightColor = glm::vec3(colorOffsetR, colorOffsetG, colorOffsetB);
+
+        if(alpha > 360)
+            alpha = 0;
+        else
+            alpha += 0.05;
 
         // Swap the buffers
 		glfwSwapBuffers(window);
